@@ -1,0 +1,279 @@
+.levels-map-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #33ccff 0%, #00ccff 25%, #ff66cc 75%, #ff99cc 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  padding: 60px 20px 100px;
+  position: relative;
+  height: auto;       
+  overflow: hidden;
+}
+
+.levels-map-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.levels-map-container::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(255,255,255,0.03) 50px, rgba(255,255,255,0.03) 51px),
+    repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(255,255,255,0.03) 50px, rgba(255,255,255,0.03) 51px);
+  animation: movePattern 20s linear infinite;
+  pointer-events: none;
+}
+
+.levels-title {
+  text-align: center;
+  font-size: 56px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 60px;
+  text-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 40px rgba(138, 43, 226, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  letter-spacing: 2px;
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+.levels-path {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.levels-path::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  z-index: 0;
+}
+
+.level-node::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 4px;
+  width: 180px; 
+  background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  z-index: -1;
+  pointer-events: none;
+  transform: translateY(-50%) scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.level-node:nth-child(odd)::before {
+  left: 100%; 
+  transform-origin: right center; 
+}
+
+.level-node:nth-child(even)::before {
+  right: 100%; 
+  transform-origin: left center; 
+}
+
+.level-node:hover::before {
+  transform: translateY(-50%) scaleX(1); 
+}
+
+@media (max-width: 768px) {
+  .level-node::before {
+     width: calc(40vw - 110px); 
+  }
+}
+
+.level-node {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: none;
+  font-size: 48px;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 0 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 4px 8px rgba(255, 255, 255, 0.3);
+  animation: levelFloat 3s ease-in-out infinite;
+}
+
+.level-node:nth-child(odd) {
+  align-self: flex-start;
+  margin-left: 10%;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.level-node:nth-child(even) {
+  align-self: flex-end;
+  margin-right: 10%;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.level-node:nth-child(3n) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.level-node:nth-child(5n) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.level-node:nth-child(7n) {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+
+.level-node::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 60%);
+  pointer-events: none;
+}
+
+.level-node:hover {
+  transform: scale(1.25) rotate(360deg);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(255, 255, 255, 0.6),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 4px 12px rgba(255, 255, 255, 0.4);
+}
+
+.level-node:hover::before {
+  opacity: 1;
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+.level-node:active {
+  transform: scale(1.1);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 255, 255, 0.5),
+    inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.level-node:nth-child(1) { animation-delay: 0s; }
+.level-node:nth-child(2) { animation-delay: 0.2s; }
+.level-node:nth-child(3) { animation-delay: 0.4s; }
+.level-node:nth-child(4) { animation-delay: 0.6s; }
+.level-node:nth-child(5) { animation-delay: 0.8s; }
+.level-node:nth-child(6) { animation-delay: 1s; }
+.level-node:nth-child(7) { animation-delay: 1.2s; }
+.level-node:nth-child(8) { animation-delay: 1.4s; }
+.level-node:nth-child(9) { animation-delay: 1.6s; }
+.level-node:nth-child(10) { animation-delay: 1.8s; }
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.5),
+      0 0 40px rgba(138, 43, 226, 0.4),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 30px rgba(255, 255, 255, 0.8),
+      0 0 60px rgba(138, 43, 226, 0.6),
+      0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes levelFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes movePattern {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+@media (max-width: 768px) {
+  .levels-title {
+    font-size: 40px;
+  }
+  
+  .level-node {
+    width: 110px;
+    height: 110px;
+    font-size: 38px;
+  }
+  
+  .level-node:nth-child(odd) {
+    margin-left: 5%;
+  }
+  
+  .level-node:nth-child(even) {
+    margin-right: 5%;
+  }
+  
+  .levels-path {
+    gap: 60px;
+  }
+}
