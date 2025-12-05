@@ -7,9 +7,8 @@ function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const REACT_APP_GEMINI_API_KEY = "AIzaSyB854ZGMDGjGcyHJgxSMOzXB7xZJrZBQ9s";
-
-  const genAIRef = useRef(new GoogleGenerativeAI(REACT_APP_GEMINI_API_KEY));
+  // Access the key safely from the environment variable
+  const genAIRef = useRef(new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY));
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -129,3 +128,4 @@ Always provide clear, accurate, and professional explanations with examples when
 }
 
 export default Chatbot;
+
